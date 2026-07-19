@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Local Build <local@build>
+Date: Thu, 7 May 2026 00:00:00 +0000
+Subject: drm/i915/vbt: add blanking_packets_during_bllp and lp_clock_during_lpm
+
+Backport of the relevant subset of upstream commit
+906cbdc1fffa3b18992108c8bda66de058285daa
+("drm/i915/vbt: add missing DSI VBT defs").  Adds the two VBT 219+ DPHY
+flag bits referenced by the drm-intel-next 2026-03-26 DSI series
+(blanking packets during BLLP and LP clock during LPM).
+---
+ drivers/gpu/drm/i915/display/intel_bios.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.h b/drivers/gpu/drm/i915/display/intel_bios.h
+--- a/drivers/gpu/drm/i915/display/intel_bios.h
++++ b/drivers/gpu/drm/i915/display/intel_bios.h
+@@ -156,7 +156,9 @@ struct mipi_config {
+ 	/* DPHY Flags */
+ 	u16 dphy_param_valid:1;
+ 	u16 eot_pkt_disabled:1;
+ 	u16 enable_clk_stop:1;
+-	u16 rsvd7:13;
++	u16 blanking_packets_during_bllp:1;	/* 219+ */
++	u16 lp_clock_during_lpm:1;		/* 219+ */
++	u16 rsvd7:11;
+
+ 	u32 hs_tx_timeout;
+ 	u32 lp_rx_timeout;
